@@ -1,0 +1,6 @@
+@Grub_Hunt.Auth_HostAddress = http://localhost:5018
+
+GET {{Grub_Hunt.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
