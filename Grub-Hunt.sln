@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grub-Hunt.Auth", "Grub-Hunt.Auth\Grub-Hunt.Auth.csproj", "{3FF7E853-B2C2-492A-BD26-AD8822A26173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grub-Hunt.AuthAPI", "Grub-Hunt.AuthAPI\Grub-Hunt.AuthAPI.csproj", "{3FF7E853-B2C2-492A-BD26-AD8822A26173}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D645B5E9-16BA-4F66-AC70-C2A14C4A26BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3FF7E853-B2C2-492A-BD26-AD8822A26173} = {D645B5E9-16BA-4F66-AC70-C2A14C4A26BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10404289-182C-4914-B24E-292DC74DAD37}
