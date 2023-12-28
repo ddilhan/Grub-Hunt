@@ -12,8 +12,13 @@ builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("APISettings:JWTOptions"));
+
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>()
+    .AddIdentity<ApplicationUser, IdentityRole>(options => 
+    {
+        options.User.RequireUniqueEmail = true;
+    })
     .AddEntityFrameworkStores<AppDBContext>()
     .AddDefaultTokenProviders();
 
@@ -21,11 +26,12 @@ builder.Services
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IAuthService, AuthService>();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
 
 var app = builder.Build();
 
