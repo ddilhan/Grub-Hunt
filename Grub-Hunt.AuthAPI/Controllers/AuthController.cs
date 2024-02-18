@@ -44,6 +44,7 @@ namespace Grub_Hunt.AuthAPI.Controllers
         {
             try
             {
+                _responseDTO = new();
                 var user = await _authService.SignIn(signInModel);
                 _responseDTO.Result = user;
 
