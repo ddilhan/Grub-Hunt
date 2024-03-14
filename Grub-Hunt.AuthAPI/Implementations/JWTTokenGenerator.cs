@@ -15,16 +15,18 @@ namespace Grub_Hunt.AuthAPI.Implementations
         {
             _jWTOptions = jWTOptions.Value;
         }
-        public string GenerateToken(ApplicationUser user)
+        public string GenerateToken(TokenProperties properties)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jWTOptions?.Secret);
 
             var claimList = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.Email, user?.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new Claim(JwtRegisteredClaimNames.Email, properties.user?.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, properties.user.Id),
             };
+
+            claimList.AddRange(properties.Roles.Select(x => new Claim(ClaimTypes.Role, x)));
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {

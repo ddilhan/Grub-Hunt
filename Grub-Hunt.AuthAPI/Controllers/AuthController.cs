@@ -50,7 +50,8 @@ namespace Grub_Hunt.AuthAPI.Controllers
 
                 if (user != null)
                 {
-                    _responseDTO.Token = _jWTTokenGenerator.GenerateToken(user);
+                    var roles = await _authService.GetRoles(user);
+                    _responseDTO.Token = _jWTTokenGenerator.GenerateToken(new Models.TokenProperties { user = user, Roles = roles });
                 }
                 else
                     _responseDTO.Message = "Unable to login user";

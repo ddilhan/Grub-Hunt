@@ -9,5 +9,6 @@ namespace Grub_Hunt.AuthAPI.Interfaces
         public Task<ApplicationUser?> SignIn(SignInDTO model);
         public void SignOut();
         public Task<bool> AssignRole(string? email, string? role);
+        public Task<IEnumerable<string>> GetRoles(ApplicationUser applicationUser);
     }
 }

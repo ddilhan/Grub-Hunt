@@ -4,6 +4,6 @@ namespace Grub_Hunt.AuthAPI.Interfaces
 {
     public interface IJWTTokenGenerator
     {
-        public string GenerateToken(ApplicationUser user);
+        public string GenerateToken(TokenProperties properties);
     }
 }

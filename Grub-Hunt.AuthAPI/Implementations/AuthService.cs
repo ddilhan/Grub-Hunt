@@ -63,5 +63,10 @@ namespace Grub_Hunt.AuthAPI.Implementations
             else
                 return false;
         }
+
+        public async Task<IEnumerable<string>> GetRoles(ApplicationUser applicationUser) 
+        {
+           return await _userManager.GetRolesAsync(applicationUser);
+        }
     }
 }
