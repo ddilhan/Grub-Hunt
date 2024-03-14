@@ -4,6 +4,7 @@ using Grub_Hunt.Web.Interfaces;
 using Grub_Hunt.Web.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
 
 namespace Grub_Hunt.Web.Implementations
 {
@@ -12,18 +13,21 @@ namespace Grub_Hunt.Web.Implementations
         private readonly IBaseService _baseService;
         private readonly ITokenProviderService _tokenProviderService;
         private readonly IHttpContextAccessor _contextAccessor;
-        public AuthService(IBaseService baseService, ITokenProviderService tokenProviderService, IHttpContextAccessor contextAccessor)
+        private readonly ServiceUrls _serviceUrls;
+        public AuthService(IBaseService baseService, ITokenProviderService tokenProviderService, IHttpContextAccessor contextAccessor,
+            IOptions<ServiceUrls> options)
         {
             _baseService = baseService;
             _tokenProviderService = tokenProviderService;
             _contextAccessor = contextAccessor;
+            _serviceUrls = options.Value;
         }
         public async Task<ResponseDTO?> SignUpAsync(SignUpDTO model)
         {
             return await _baseService.SendAsync(new RequestDTO
             {
                 HttpMethod = HttpMethod.Post,
-                Url = $"{StaticDetails.AuthAPIBaseUrl}/api/Auth/SignUp",
+                Url = $"{_serviceUrls.AuthAPIBaseUrl}/api/Auth/SignUp",
                 Data = model
             });
         }
@@ -33,7 +37,7 @@ namespace Grub_Hunt.Web.Implementations
             var result =  await _baseService.SendAsync(new RequestDTO
             {
                 HttpMethod = HttpMethod.Post,
-                Url = $"{StaticDetails.AuthAPIBaseUrl}/api/Auth/SignIn",
+                Url = $"{_serviceUrls.AuthAPIBaseUrl}/api/Auth/SignIn",
                 Data = model
             });
 
@@ -48,7 +52,7 @@ namespace Grub_Hunt.Web.Implementations
             return await _baseService.SendAsync(new RequestDTO
             {
                 HttpMethod = HttpMethod.Post,
-                Url = $"{StaticDetails.AuthAPIBaseUrl}/api/Auth/AssignRole",
+                Url = $"{_serviceUrls.AuthAPIBaseUrl}/api/Auth/AssignRole",
                 Data = model
             });
         }

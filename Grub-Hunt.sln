@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{74AC088D-0255-4528-998A-6D50FC79003D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grub-Hunt.Web", "Grub-Hunt.Web\Grub-Hunt.Web.csproj", "{B4461A26-E085-4678-BCBD-EA8403B282B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grub-Hunt.Web", "Grub-Hunt.Web\Grub-Hunt.Web.csproj", "{B4461A26-E085-4678-BCBD-EA8403B282B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grub-Hunt.ProductAPI", "Grub-Hunt.ProductAPI\Grub-Hunt.ProductAPI.csproj", "{571DC8B1-5672-4778-BA99-D6791A465BC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{B4461A26-E085-4678-BCBD-EA8403B282B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4461A26-E085-4678-BCBD-EA8403B282B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4461A26-E085-4678-BCBD-EA8403B282B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571DC8B1-5672-4778-BA99-D6791A465BC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571DC8B1-5672-4778-BA99-D6791A465BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571DC8B1-5672-4778-BA99-D6791A465BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571DC8B1-5672-4778-BA99-D6791A465BC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3FF7E853-B2C2-492A-BD26-AD8822A26173} = {D645B5E9-16BA-4F66-AC70-C2A14C4A26BD}
 		{B4461A26-E085-4678-BCBD-EA8403B282B3} = {74AC088D-0255-4528-998A-6D50FC79003D}
+		{571DC8B1-5672-4778-BA99-D6791A465BC5} = {D645B5E9-16BA-4F66-AC70-C2A14C4A26BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10404289-182C-4914-B24E-292DC74DAD37}

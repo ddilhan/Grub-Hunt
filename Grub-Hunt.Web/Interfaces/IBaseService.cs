@@ -5,6 +5,6 @@ namespace Grub_Hunt.Web.Interfaces
 {
     public interface IBaseService
     {
-        public Task<ResponseDTO?> SendAsync(RequestDTO request);
+        public Task<ResponseDTO?> SendAsync(RequestDTO request, bool withToken = true);
     }
 }

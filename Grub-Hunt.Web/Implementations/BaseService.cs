@@ -10,18 +10,27 @@ namespace Grub_Hunt.Web.Implementations
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public BaseService(IHttpClientFactory httpClientFactory)
+        private readonly ITokenProviderService _tokenProviderService;
+
+        public BaseService(IHttpClientFactory httpClientFactory, ITokenProviderService tokenProviderService)
         {
             _httpClientFactory = httpClientFactory;
+            _tokenProviderService = tokenProviderService;
+
         }
-        public async Task<ResponseDTO?> SendAsync(RequestDTO request)
+        public async Task<ResponseDTO?> SendAsync(RequestDTO request, bool withToken = true)
         {
             try
             {
                 var client = _httpClientFactory.CreateClient();
                 HttpRequestMessage message = new();
                 message.Headers.Add("Accept", "application/json");
-                // token
+
+                if (withToken) 
+                {
+                    var token = _tokenProviderService.GetToken();
+                    message.Headers.Add("Authorization", $"Bearer {token}");
+                }
 
                 message.Method = request.HttpMethod;
                 message.RequestUri = new Uri(request.Url);
