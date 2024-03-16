@@ -1,6 +1,8 @@
 using AutoMapper;
 using Grub_Hunt.ProductAPI.Data;
 using Grub_Hunt.ProductAPI.DTOs;
+using Grub_Hunt.ProductAPI.Implementations;
+using Grub_Hunt.ProductAPI.Interfaces;
 using Grub_Hunt.ProductAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,6 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

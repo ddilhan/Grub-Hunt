@@ -1,26 +1,24 @@
 ﻿using AutoMapper;
-using Grub_Hunt.ProductAPI.Data;
 using Grub_Hunt.ProductAPI.DTOs;
-using Grub_Hunt.ProductAPI.Models;
+using Grub_Hunt.ProductAPI.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Grub_Hunt.ProductAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : Controller
-    {
-        private readonly AppDBContext _dbContext;
+    {=
         private ResponseDTO _responseDTO;
         private readonly IMapper _mapper;
+        private readonly IProductService _productService;
 
-        public ProductController(AppDBContext dbContext, IMapper mapper)
+        public ProductController(IMapper mapper, IProductService productService)
         {
-            _dbContext = dbContext;
             _responseDTO = new();
             _mapper = mapper;
+            _productService = productService;
         }
 
         [Authorize]
@@ -29,7 +27,7 @@ namespace Grub_Hunt.ProductAPI.Controllers
         {
             try
             {
-                var products = _dbContext.Set<Product>().ToList();
+                var products = _productService.GetProducts();
 
                 _responseDTO.Result = products;
                 _responseDTO.StatusCode = System.Net.HttpStatusCode.OK;
@@ -49,7 +47,7 @@ namespace Grub_Hunt.ProductAPI.Controllers
         {
             try
             {
-                var product = _dbContext.Set<Product>().FirstOrDefault(x => x.ID == id);
+                var product = _productService.GetProduct(id);
 
                 _responseDTO.Result = product;
                 _responseDTO.StatusCode = System.Net.HttpStatusCode.OK;
@@ -70,22 +68,14 @@ namespace Grub_Hunt.ProductAPI.Controllers
         {
             try
             {
-                if (model != null) 
+                if (model != null)
                 {
-                    var product = _mapper.Map<Product>(model);
-                    product.CreatedDate = DateTime.Now;
-
-                    //get and assign the id from token
-                    product.CreatedBy = "";
-
-                    _dbContext.Set<Product>().Add(product);
-                    _dbContext.SaveChanges();
-
+                    _productService.CreateProduct(model);
                     _responseDTO.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
                 {
-                    _responseDTO.StatusCode=System.Net.HttpStatusCode.BadRequest;
+                    _responseDTO.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
             }
             catch (Exception ex)
@@ -105,18 +95,7 @@ namespace Grub_Hunt.ProductAPI.Controllers
             {
                 if (model is not null && model.ID is not 0)
                 {
-                    var product = _dbContext.Set<Product>().FirstOrDefault(x => x.ID == model.ID);
-
-                    if (product is not null)
-                    {
-                        product.Name = model.Name;
-                        product.ModifiedDate = DateTime.Now;
-                        product.ModifiedBy = "";
-
-                        _dbContext.Set<Product>().Update(product);
-                        _dbContext.SaveChanges();
-                    }
-
+                    _productService.EditProduct(model);
                     _responseDTO.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
@@ -139,16 +118,11 @@ namespace Grub_Hunt.ProductAPI.Controllers
         {
             try
             {
-                var product = _dbContext.Set<Product>().FirstOrDefault(x => x.ID == id);
+                var product = _productService.GetProduct(id);
 
                 if (product is not null)
                 {
-                    product.DeletedBy = "";
-                    product.DeletedDate = DateTime.Now;
-
-                    _dbContext.Set<Product>().Update(product);
-                    _dbContext.SaveChanges();
-
+                    _productService.DeleteProduct(product);
                     _responseDTO.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
