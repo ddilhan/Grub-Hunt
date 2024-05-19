@@ -1,0 +1,28 @@
+﻿@using Grub_Hunt.Web.DTOs
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<ProductDTO>;
+
+<div class="text-center">
+    <h1 class="display-4">Products</h1>
+
+    <table>
+        <thead>
+            <tr>ID</tr>
+            <tr>Name</tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

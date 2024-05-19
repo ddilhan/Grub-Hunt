@@ -24,6 +24,7 @@ builder.Services.AddHttpClient<IAuthService, AuthService>();
 
 builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("ServiceUrls"));
 
+builder.Services.AddSingleton<ConvertObjects>();
 builder.Services.AddScoped<ITokenProviderService, TokenProviderService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
