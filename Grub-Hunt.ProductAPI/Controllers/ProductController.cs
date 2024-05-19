@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Grub_Hunt.ProductAPI.DTOs;
 using Grub_Hunt.ProductAPI.Interfaces;
+using Grub_Hunt.ProductAPI.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,16 +10,18 @@ namespace Grub_Hunt.ProductAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : Controller
-    {=
+    {
         private ResponseDTO _responseDTO;
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
+        private readonly ConvertObjects _converter;
 
-        public ProductController(IMapper mapper, IProductService productService)
+        public ProductController(IMapper mapper, IProductService productService, ConvertObjects converter)
         {
             _responseDTO = new();
             _mapper = mapper;
             _productService = productService;
+            _converter = converter;
         }
 
         [Authorize]
@@ -29,7 +32,7 @@ namespace Grub_Hunt.ProductAPI.Controllers
             {
                 var products = _productService.GetProducts();
 
-                _responseDTO.Result = products;
+                _responseDTO.Result = _converter.TypeToJsonString(products);
                 _responseDTO.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
